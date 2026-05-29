@@ -1,0 +1,35 @@
+services:
+  mysqldb:
+    image: mysql:8.0
+    container_name: mysql-container
+    restart: always
+    environment:
+      # MAKE SURE these exactly match your database credentials
+      MYSQL_DATABASE: businessproject
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    
+
+  springapp:
+    build: .
+    container_name: springboot-app
+    restart: always
+    ports:
+      - "2330:2330"
+    depends_on:
+      - mysqldb
+    environment:
+      # Double check that the database name matches the MYSQL_DATABASE name 
+      SPRING_DATASOURCE_NAME: businessproject
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysqldb:3306/businessproject
+      SPRING_DATASOURCE_PASSWORD: root
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: com.mysql.cj.jdbc.Driver
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SERVER_PORT: 2330
+volumes:
+  mysql_data:
+

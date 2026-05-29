@@ -1,18 +1,22 @@
-D:\SPRING BOOT PROJECT\BusinessProject\src\main\java\com\business\BusinessProjectApplication.java
-D:\SPRING BOOT PROJECT\BusinessProject\src\main\java\com\business\Exceptions.java
-D:\SPRING BOOT PROJECT\BusinessProject\src\main\java\com\business\repositories\ProductRepository.java
-D:\SPRING BOOT PROJECT\BusinessProject\src\main\java\com\business\repositories\AdminRepository.java
-D:\SPRING BOOT PROJECT\BusinessProject\src\main\java\com\business\loginCredentials\AdminLogin.java
-D:\SPRING BOOT PROJECT\BusinessProject\src\main\java\com\business\entities\Product.java
-D:\SPRING BOOT PROJECT\BusinessProject\src\main\java\com\business\controllers\ProductController.java
-D:\SPRING BOOT PROJECT\BusinessProject\src\main\java\com\business\entities\User.java
-D:\SPRING BOOT PROJECT\BusinessProject\src\main\java\com\business\repositories\UserRepository.java
-D:\SPRING BOOT PROJECT\BusinessProject\src\main\java\com\business\loginCredentials\UserLogin.java
-D:\SPRING BOOT PROJECT\BusinessProject\src\main\java\com\business\services\UserServices.java
-D:\SPRING BOOT PROJECT\BusinessProject\src\main\java\com\business\controllers\AdminController.java
-D:\SPRING BOOT PROJECT\BusinessProject\src\main\java\com\business\controllers\HomeController.java
-D:\SPRING BOOT PROJECT\BusinessProject\src\main\java\com\business\entities\Admin.java
-D:\SPRING BOOT PROJECT\BusinessProject\src\main\java\com\business\entities\Orders.java
-D:\SPRING BOOT PROJECT\BusinessProject\src\main\java\com\business\controllers\UserController.java
-D:\SPRING BOOT PROJECT\BusinessProject\src\main\java\com\business\services\ProductServices.java
-D:\SPRING BOOT PROJECT\BusinessProject\src\main\java\com\business\services\AdminServices.java
+/home/ubuntu/spring_app_deployment/Business_Management_Project/src/main/java/com/business/entities/Product.java
+/home/ubuntu/spring_app_deployment/Business_Management_Project/src/main/java/com/business/repositories/OrderRepository.java
+/home/ubuntu/spring_app_deployment/Business_Management_Project/src/main/java/com/business/entities/Orders.java
+/home/ubuntu/spring_app_deployment/Business_Management_Project/src/main/java/com/business/controllers/OrderController.java
+/home/ubuntu/spring_app_deployment/Business_Management_Project/src/main/java/com/business/loginCredentials/AdminLogin.java
+/home/ubuntu/spring_app_deployment/Business_Management_Project/src/main/java/com/business/repositories/UserRepository.java
+/home/ubuntu/spring_app_deployment/Business_Management_Project/src/main/java/com/business/entities/User.java
+/home/ubuntu/spring_app_deployment/Business_Management_Project/src/main/java/com/business/Exceptions.java
+/home/ubuntu/spring_app_deployment/Business_Management_Project/src/main/java/com/business/repositories/ProductRepository.java
+/home/ubuntu/spring_app_deployment/Business_Management_Project/src/main/java/com/business/services/ProductServices.java
+/home/ubuntu/spring_app_deployment/Business_Management_Project/src/main/java/com/business/BusinessProjectApplication.java
+/home/ubuntu/spring_app_deployment/Business_Management_Project/src/main/java/com/business/controllers/AdminController.java
+/home/ubuntu/spring_app_deployment/Business_Management_Project/src/main/java/com/business/services/OrderServices.java
+/home/ubuntu/spring_app_deployment/Business_Management_Project/src/main/java/com/business/repositories/AdminRepository.java
+/home/ubuntu/spring_app_deployment/Business_Management_Project/src/main/java/com/business/controllers/UserController.java
+/home/ubuntu/spring_app_deployment/Business_Management_Project/src/main/java/com/business/controllers/ProductController.java
+/home/ubuntu/spring_app_deployment/Business_Management_Project/src/main/java/com/business/entities/Admin.java
+/home/ubuntu/spring_app_deployment/Business_Management_Project/src/main/java/com/business/loginCredentials/UserLogin.java
+/home/ubuntu/spring_app_deployment/Business_Management_Project/src/main/java/com/business/services/UserServices.java
+/home/ubuntu/spring_app_deployment/Business_Management_Project/src/main/java/com/business/services/AdminServices.java
+/home/ubuntu/spring_app_deployment/Business_Management_Project/src/main/java/com/business/controllers/HomeController.java
+/home/ubuntu/spring_app_deployment/Business_Management_Project/src/main/java/com/business/basiclogics/Logic.java
