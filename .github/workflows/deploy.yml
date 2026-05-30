@@ -35,12 +35,16 @@ jobs:
 
    # 4. OWASP Dependency Check
     - name: Run OWASP Dependency Check
-      uses: dependency-check/Dependency-Check_Action@main
-      with:
-        project: 'business_management_project'
-        path: '.'
-        format: 'HTML'
-        args: '--failOnCVSS 7 --enableRetired'
+      run: |
+        wget https://github.com/jeremylong/DependencyCheck/releases/download/v8.4.0/dependency-check-8.4.0-release.zip
+        unzip dependency-check-8.4.0-release.zip
+        ./dependency-check/bin/dependency-check.sh \
+          --project "business_management_project" \
+          --scan . \
+          --format HTML \
+          --out reports \
+          --failOnCVSS 7 \
+          --enableRetired
 
     - name: Upload OWASP Report
       uses: actions/upload-artifact@v4
