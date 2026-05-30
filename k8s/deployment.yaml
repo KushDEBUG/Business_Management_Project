@@ -13,39 +13,14 @@ spec:
         app: java-app
     spec:
       containers:
-      - name: java-app
-        image: apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: java-app
-spec:
-  replicas: 2
-  selector:
-    matchLabels:
-      app: java-app
-  template:
-    metadata:
-      labels:
-        app: java-app
-    spec:
-      containers:
-      - name: java-app
-        image: 665206375359.dkr.ecr.us-east-1.amazonaws.com/business_management_project:b8a41ee2f267501040b04943f9ab5a0595f9f6b0/my-java-app:latest
-        ports:
-        - containerPort: 2330
-        resources:
-          requests:
-            memory: "256Mi"
-            cpu: "250m"
-          limits:
-            memory: "512Mi"
-            cpu: "500m"/my-java-app:latest
-        ports:
-        - containerPort: 2330
-        resources:
-          requests:
-            memory: "256Mi"
-            cpu: "250m"
-          limits:
-            memory: "512Mi"
-            cpu: "500m"
+        - name: java-app
+          image: 665206375359.dkr.ecr.us-east-1.amazonaws.com/business_management_project:b8a41ee2f267501040b04943f9ab5a0595f9f6b0/my-java-app:latest
+          ports:
+            - containerPort: 2330
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "250m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
