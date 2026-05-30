@@ -33,16 +33,14 @@ jobs:
     - name: Build with Maven
       run: mvn clean package -DskipTests
 
-    # 4. OWASP Dependency Check
+   # 4. OWASP Dependency Check
     - name: Run OWASP Dependency Check
       uses: dependency-check/Dependency-Check_Action@main
       with:
         project: 'business_management_project'
         path: '.'
         format: 'HTML'
-        args: >
-          --failOnCVSS 7
-          --enableRetired
+        args: '--failOnCVSS 7 --enableRetired'
 
     - name: Upload OWASP Report
       uses: actions/upload-artifact@v4
