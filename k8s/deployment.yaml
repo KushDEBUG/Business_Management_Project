@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: java-app
-          image: 665206375359.dkr.ecr.us-east-1.amazonaws.com/business_management_project:40aa2f58d08ebb1842f44fca007284838e361faf:latest
+          image: 665206375359.dkr.ecr.us-east-1.amazonaws.com/business_management_project:40aa2f58d08ebb1842f44fca007284838e361faf
           ports:
             - containerPort: 2330
           env:
