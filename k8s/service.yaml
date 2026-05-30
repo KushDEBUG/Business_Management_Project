@@ -5,6 +5,7 @@ metadata:
 spec:
   selector:
     app: java-app
+    version: blue
   type: LoadBalancer
   ports:
   - protocol: TCP
