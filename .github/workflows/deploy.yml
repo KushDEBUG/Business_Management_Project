@@ -33,7 +33,18 @@ jobs:
     - name: Build with Maven
       run: mvn clean package -DskipTests
 
-# 4. OWASP Dependency Check
+
+    # 4. SonarQube Analysis
+    - name: Run SonarQube Analysis
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      run: |
+        mvn sonar:sonar \
+          -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }} \
+          -Dsonar.organization=${{ secrets.SONAR_ORG }} \
+          -Dsonar.host.url=https://sonarcloud.io \
+          -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+# 5. OWASP Dependency Check
     - name: Run OWASP Dependency Check
       run: echo "OWASP scan skipped - NVD API key activates in 24hrs"
 
@@ -43,7 +54,7 @@ jobs:
         name: dependency-check-report
         path: reports/
         if-no-files-found: ignore
-    # 5. Login to AWS ECR
+    # 6. Login to AWS ECR
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v2
       with:
@@ -55,7 +66,7 @@ jobs:
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
 
-    # 6. Build Docker Image
+    # 7. Build Docker Image
     - name: Build Docker Image
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
@@ -63,7 +74,7 @@ jobs:
       run: |
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
 
-    # 7. Trivy Image Scan
+    # 8. Trivy Image Scan
     - name: Run Trivy Vulnerability Scan
       uses: aquasecurity/trivy-action@master
       with:
@@ -72,7 +83,7 @@ jobs:
         exit-code: '0'
         severity: 'CRITICAL,HIGH'
 
-    # 8. Push to ECR
+    # 9. Push to ECR
     - name: Push Docker Image to ECR
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
@@ -81,7 +92,7 @@ jobs:
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         echo "Image pushed: $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
 
-    # 9. Deploy to EKS
+    # 10. Deploy to EKS
     - name: Deploy to EKS
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
