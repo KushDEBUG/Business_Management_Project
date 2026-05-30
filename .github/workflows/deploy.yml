@@ -33,7 +33,24 @@ jobs:
     - name: Build with Maven
       run: mvn clean package -DskipTests
 
-    # 4. Login to AWS ECR
+    # 4. OWASP Dependency Check
+    - name: Run OWASP Dependency Check
+      uses: dependency-check/Dependency-Check_Action@main
+      with:
+        project: 'business_management_project'
+        path: '.'
+        format: 'HTML'
+        args: >
+          --failOnCVSS 7
+          --enableRetired
+
+    - name: Upload OWASP Report
+      uses: actions/upload-artifact@v3
+      with:
+        name: dependency-check-report
+        path: reports/
+
+    # 5. Login to AWS ECR
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v2
       with:
@@ -45,7 +62,7 @@ jobs:
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
 
-    # 5. Build Docker Image
+    # 6. Build Docker Image
     - name: Build Docker Image
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
@@ -53,7 +70,7 @@ jobs:
       run: |
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
 
-    # 6. Trivy Image Scan
+    # 7. Trivy Image Scan
     - name: Run Trivy Vulnerability Scan
       uses: aquasecurity/trivy-action@master
       with:
@@ -62,7 +79,7 @@ jobs:
         exit-code: '1'
         severity: 'CRITICAL,HIGH'
 
-    # 7. Push to ECR
+    # 8. Push to ECR
     - name: Push Docker Image to ECR
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
@@ -71,7 +88,7 @@ jobs:
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         echo "Image pushed: $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
 
-    # 8. Deploy to EKS
+    # 9. Deploy to EKS
     - name: Deploy to EKS
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
