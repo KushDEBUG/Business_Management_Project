@@ -14,9 +14,25 @@ spec:
     spec:
       containers:
         - name: java-app
-          image: 665206375359.dkr.ecr.us-east-1.amazonaws.com/business_management_project:b8a41ee2f267501040b04943f9ab5a0595f9f6b0/my-java-app:latest
+          image: 665206375359.dkr.ecr.us-east-1.amazonaws.com/business_management_project:40aa2f58d08ebb1842f44fca007284838e361faf/business_management_project:latest
           ports:
             - containerPort: 2330
+          env:
+            - name: SPRING_DATASOURCE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: java-app-secrets
+                  key: db-url
+            - name: SPRING_DATASOURCE_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: java-app-secrets
+                  key: db-username
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: java-app-secrets
+                  key: db-password
           resources:
             requests:
               memory: "256Mi"
