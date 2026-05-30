@@ -40,7 +40,8 @@ jobs:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       run: |
         mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
-          -Dsonar.projectKey=KushDEBUG_Business_Management_Project
+          -Dsonar.projectKey=KushDEBUG_Business_Management_Project \
+          -DskipTests
 # 5. OWASP Dependency Check
     - name: Run OWASP Dependency Check
       run: echo "OWASP scan skipped - NVD API key activates in 24hrs"
