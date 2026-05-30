@@ -90,14 +90,35 @@ jobs:
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         echo "Image pushed: $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
 
-    # 10. Deploy to EKS
-    - name: Deploy to EKS
+# 10. Blue/Green Deployment
+    - name: Deploy Green Version
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         IMAGE_TAG: ${{ github.sha }}
       run: |
         aws eks update-kubeconfig --name ${{ secrets.EKS_CLUSTER_NAME }} --region ${{ env.AWS_REGION }}
-        sed -i "s|YOUR_ECR_URL/business_management_project:latest|$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG|g" k8s/deployment.yaml
-        kubectl apply -f k8s/deployment.yaml
-        kubectl apply -f k8s/service.yaml
-        kubectl rollout status deployment/java-app
+        
+        # Update green deployment with new image
+        sed -i "s|665206375359.dkr.ecr.us-east-1.amazonaws.com/business_management_project:latest|$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG|g" k8s/deployment-green.yaml
+        
+        # Deploy green
+        kubectl apply -f k8s/deployment-green.yaml
+        
+        # Wait for green to be ready
+        kubectl rollout status deployment/java-app-green --timeout=120s
+        
+        # Switch traffic from blue to green
+        kubectl patch service java-app-service -p '{"spec":{"selector":{"version":"green"}}}'
+        
+        echo "✅ Traffic switched to GREEN"
+        
+        # Wait and verify
+        sleep 10
+        kubectl get pods -l version=green
+        
+    - name: Rollback to Blue if Green Fails
+      if: failure()
+      run: |
+        aws eks update-kubeconfig --name ${{ secrets.EKS_CLUSTER_NAME }} --region ${{ env.AWS_REGION }}
+        kubectl patch service java-app-service -p '{"spec":{"selector":{"version":"blue"}}}'
+        echo "❌ Green failed — rolled back to BLUE"
